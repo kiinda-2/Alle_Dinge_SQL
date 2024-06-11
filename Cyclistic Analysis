@@ -1,0 +1,134 @@
+
+#load libraries 
+library(tidyverse) #calculations
+library(lubridate) #dates 
+library(hms) #time
+library(data.table) #export data frame
+
+
+#load original .csv files, data from January to December 2023
+jan_df <- read_csv("202301-divvy-tripdata.csv") 
+feb_df <- read_csv("202302-divvy-tripdata.csv") 
+mar_df <- read_csv("202303-divvy-tripdata.csv")
+apr_df <- read_csv("202303-divvy-tripdata.csv") 
+may_df <- read_csv("202305-divvy-tripdata.csv")
+jun_df <- read_csv("202306-divvy-tripdata.csv") 
+jul_df <- read_csv("202307-divvy-tripdata.csv") 
+aug_df <- read_csv("202308-divvy-tripdata.csv")
+sep_df <- read_csv("202309-divvy-tripdata.csv")
+oct_df <- read_csv("202310-divvy-tripdata.csv") 
+nov_df <- read_csv("202311-divvy-tripdata.csv") 
+dec_df <- read_csv("202312-divvy-tripdata.csv") 
+
+
+#merge into a year's view
+cyclistic_df <- rbind (jan_df, feb_df, mar_df, apr_df, may_df, jun_df, jul_df, aug_df, sep_df, oct_df, nov_df, dec_df)
+
+
+#remove individual month data frames
+remove(jan_df, feb_df, mar_df, apr_df, may_df, jun_df, jul_df, aug_df, sep_df, oct_df, nov_df, dec_df)
+
+
+#create a new data frame to contain new columns
+cyclistic_cont <- cyclistic_df
+
+
+#calculate ride length by subtracting ended_at time from started_at time and converted it to minutes
+cyclistic_cont$ride_length <- difftime(cyclistic_df$ended_at, cyclistic_df$started_at, units = "mins")
+cyclistic_cont$ride_length <- round(cyclistic_date$ride_length, digits = 1)
+
+
+#create columns for day of week, month, day, year, time, hour
+cyclistic_cont$date <- as.Date(cyclistic_cont$started_at) #default format is yyyy-mm-dd, use start date
+cyclistic_cont$day_of_week <- wday(cyclistic_df$started_at) #calculate the day of the week 
+cyclistic_cont$day_of_week <- format(as.Date(cyclistic_cont$date), "%A") #create column for day of week
+cyclistic_cont$month <- format(as.Date(cyclistic_cont$date), "%m")#create column for month
+cyclistic_cont$day <- format(as.Date(cyclistic_cont$date), "%d") #create column for day
+cyclistic_cont$year <- format(as.Date(cyclistic_cont$date), "%Y") #create column for year
+cyclistic_cont$time <- format(as.Date(cyclistic_cont$date), "%H:%M:%S") #format time as HH:MM:SS
+ccyclistic_cont$time <- as_hms((cyclistic_df$started_at)) #create new column for time
+cyclistic_cont$hour <- hour(cyclistic_cont$time) #create new column for hour
+
+
+#create column for different time_of_day: Night, Morning, Afternoon, Evening
+cyclistic_cont <-cyclistic_cont %>% mutate(time_of_day = 
+                                             case_when(hour == "0" ~ "Night",
+                                                       hour == "1" ~ "Night",
+                                                       hour == "2" ~ "Night",
+                                                       hour == "3" ~ "Night",
+                                                       hour == "4" ~ "Night",
+                                                       hour == "5" ~ "Night",
+                                                       hour == "6" ~ "Morning",
+                                                       hour == "7" ~ "Morning",
+                                                       hour == "8" ~ "Morning",
+                                                       hour == "9" ~ "Morning",
+                                                       hour == "10" ~ "Morning",
+                                                       hour == "11" ~ "Morning",
+                                                       hour == "12" ~ "Afternoon",
+                                                       hour == "13" ~ "Afternoon",
+                                                       hour == "14" ~ "Afternoon",
+                                                       hour == "15" ~ "Afternoon",
+                                                       hour == "16" ~ "Afternoon",
+                                                       hour == "17" ~ "Afternoon",
+                                                       hour == "18" ~ "Evening",
+                                                       hour == "19" ~ "Evening",
+                                                       hour == "20" ~ "Evening",
+                                                       hour == "21" ~ "Evening",
+                                                       hour == "22" ~ "Evening",
+                                                       hour == "23" ~ "Evening")
+)
+
+
+#create a column for the month using the full month name
+cyclistic_cont <-cyclistic_cont %>% mutate(month = 
+                                             case_when(month == "01" ~ "January",
+                                                       month == "02" ~ "February",
+                                                       month == "03" ~ "March",
+                                                       month == "04" ~ "April",
+                                                       month == "05" ~ "May",
+                                                       month == "06" ~ "June",
+                                                       month == "07" ~ "July",
+                                                       month == "08" ~ "August",
+                                                       month == "09" ~ "September",
+                                                       month == "10" ~ "October",
+                                                       month == "11" ~ "November",
+                                                       month == "12" ~ "December"
+                                                       )
+)
+
+
+#create columns for different seasons: Spring, Summer, Fall, and Winter
+cyclistic_cont <-cyclistic_cont %>% mutate(season = 
+                                             case_when(month == "March" ~ "Spring",
+                                                       month == "April" ~ "Spring",
+                                                       month == "May" ~ "Spring",
+                                                       month == "June"  ~ "Summer",
+                                                       month == "July"  ~ "Summer",
+                                                       month == "August"  ~ "Summer",
+                                                       month == "September" ~ "Fall",
+                                                       month == "October" ~ "Fall",
+                                                       month == "November" ~ "Fall",
+                                                       month == "December" ~ "Winter",
+                                                       month == "January" ~ "Winter",
+                                                       month == "February" ~ "Winter")
+)
+
+
+#clean the data
+cyclistic_cont <- na.omit(cyclistic_cont) #remove rows with NA values
+cyclistic_cont <- distinct(cyclistic_cont) #remove duplicate rows 
+cyclistic_cont <- cyclistic_cont[!(cyclistic_cont$ride_length <=0),] #remove where ride_length is 0 or negative
+cyclistic_cont <- cyclistic_cont %>%  select(-c(ride_id, start_station_id, end_station_id,start_lat,start_lng,end_lat,end_lng)) 
+#remove columns not needed: ride_id, start_station_id, end_station_id, start_lat, start_long, end_lat, end_lng
+
+
+#created a new data frame to use in Power BI
+cyclistic_bi <- cyclistic_cont
+
+
+#clean the data
+cyclistic_bi <- cyclistic_bi %>%  
+  select(-c(start_station_name, end_station_name, time, started_at, ended_at)) #remove columns not needed: start_station_name, end_station_name, time, started_at, ended_at
+
+#download the data as a .csv file
+fwrite(cyclistic_bi,"cyclistic_final.csv")
