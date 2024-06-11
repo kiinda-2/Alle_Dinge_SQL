@@ -1,2 +1,2 @@
-# Alle_Dinge_SQL
+# Google Capstone Project
 SQL-center
