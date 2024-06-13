@@ -24,13 +24,13 @@ Cyclistic is a fictional bike-sharing program which features more than 5,800 bik
 
  ### Suggestions
 It was difficult to figure out since I have never been in this kind of scenario yet but this is what I would have suggested to convert casual users to members
-•	To personalize discounts depending on preference as well as during Summer which was the busiest time of year.
-•	Encourage new users to join by having members share their experiences of how Cyclistic has been for them to create a sense of community.
+- To personalize discounts depending on preference as well as during Summer which was the busiest time of year.
+- Encourage new users to join by having members share their experiences of how Cyclistic has been for them to create a sense of community.
 
 
  ####What I learned
-•	Using R for cleaning and analysis (sharpening the skills I learned from the course)
-•	Creating visualizations in Power BI, using different visualizations as well as adding slicers to filter data
+-	Using R for cleaning and analysis (sharpening the skills I learned from the course)
+-	Creating visualizations in Power BI, using different visualizations as well as adding slicers to filter data
 
  #### I welcome any feedback to improve the project
 
