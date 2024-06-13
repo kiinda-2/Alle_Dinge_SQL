@@ -28,7 +28,7 @@ It was difficult to figure out since I have never been in this kind of scenario 
 - Encourage new users to join by having members share their experiences of how Cyclistic has been for them to create a sense of community.
 
 
- ####What I learned
+ ### What I learned
 -	Using R for cleaning and analysis (sharpening the skills I learned from the course)
 -	Creating visualizations in Power BI, using different visualizations as well as adding slicers to filter data
 
