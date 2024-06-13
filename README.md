@@ -1,6 +1,6 @@
 ## Google Capstone Project
 <ins></ins>
-I analyzed a dataset using R for Cyclistic, a bike-sharing company in Chicago. Created an interactive dashboard using Power BI showing how annual members and casual riders use Cyclistic bikes differently. I also provided marketing strategies to convert casual riders to annual members.
+I analyzed Cyclistic dataset using R, a bike-sharing company in Chicago. Created an interactive Power BI dashboard showing how annual members and casual riders use Cyclistic bikes differently. I also provided marketing strategies to convert casual riders to annual members.
 
  ### 🚲Background
 Cyclistic is a fictional bike-sharing program which features more than 5,800 bikes and 600 docking stations. It offers reclining bikes, hand tricycles, and cargo bikes, making it more inclusive to people with disabilities and riders who can't use a standard two-wheeled bike. It was founded in 2016 and has grown tremendously into a fleet of bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system any time.
@@ -29,7 +29,7 @@ It was difficult to figure out since I have never been in this kind of scenario 
 
 
  ####What I learned
-•	Using R for cleaning and analysis
+•	Using R for cleaning and analysis (sharpening the skills I learned from the course)
 •	Creating visualizations in Power BI, using different visualizations as well as adding slicers to filter data
 
  #### I welcome any feedback to improve the project
